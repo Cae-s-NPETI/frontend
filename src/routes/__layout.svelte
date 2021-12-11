@@ -10,7 +10,7 @@
 </main>
 
 <footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+	<p>your personal ride-sharing sled – <a href=".">SledAway</a></p>
 </footer>
 
 <style>

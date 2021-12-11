@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import logo from './svelte-logo.svg';
 </script>
 
 <header>
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img src={logo} alt="SvelteKit" />
+		<a href=".">
+			SledAway
 		</a>
 	</div>
 
@@ -43,15 +42,13 @@
 	.corner a {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		/*justify-content: center;*/
+		font-family: "Segoe UI";
+		font-weight: bold;
+		font-size: 1.5em;
+		padding: 0.5em 1em;
 		width: 100%;
 		height: 100%;
-	}
-
-	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
 	}
 
 	nav {
