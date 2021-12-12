@@ -4,15 +4,17 @@
 
 <script lang="ts">
 	import Login from "$lib/Login.svelte";
+	import { goto } from "$app/navigation";
 	import Status from "$lib/Status.svelte";
 </script>
 
 <svelte:head>
-	<title>SledAway</title>
+	<title>SledAway | Passenger</title>
 </svelte:head>
 
 <section>
-	<Login />
+	sssssssssss
+
 	<Status />
 </section>
 

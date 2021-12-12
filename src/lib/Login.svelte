@@ -1,12 +1,18 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte";
+import { goto } from "$app/navigation";
 
-    const dispatcher = createEventDispatcher();
+import { login } from "./stores";
+
     let userType: "driver" | "passenger";
     let userId;
 
     function doLogin() {
-
+        login.set({
+            loggedIn: true,
+            userId,
+            userType
+        });
+        goto(userType == "driver" ? "/driver" : "/passenger");
     }
 </script>
 

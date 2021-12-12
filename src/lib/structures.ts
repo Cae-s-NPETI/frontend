@@ -13,3 +13,10 @@ export type Driver = User & {
     carNo: string;
 };
 
+export type LoginStore = {
+    loggedIn: false
+} | {
+    loggedIn: true;
+    userType: "passenger" | "driver";
+    userId: number;
+};
