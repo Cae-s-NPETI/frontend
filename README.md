@@ -3,7 +3,7 @@
 The frontend application for **SledAway** – a simulated ride-sharing application.
 
 DISCLAIMER:
-> SledAway is in no way a registered trademark or an official application. It is used for educational purposes to implement a ride-sharing application with modern practices, e.g. microservices. Author bears no responsibility for any injuries caused, cats killed in the using of any portion the app.
+> SledAway is in no way a registered trademark or an official application. It is used for educational purposes to simulate a ride-sharing application with modern practices, e.g. microservices. Author bears no responsibility for any injuries caused, cats killed in the using of any portion the app.
 
 SledAway's frontend application is created with bleeding-edge `svelte@next` (a.k.a.[SvelteKit](https://kit.svelte.dev/)). Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
 

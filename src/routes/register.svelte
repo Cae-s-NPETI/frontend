@@ -3,9 +3,7 @@
 </script>
 
 <script lang="ts">
-	import Counter from "$lib/Counter.svelte";
 	import Register from "$lib/Register.svelte";
-	import Login from "$lib/Login.svelte";
 	import { goto } from "$app/navigation";
 </script>
 
@@ -15,7 +13,7 @@
 </svelte:head>
 
 <section>
-	<Login
+	<Register
 		on:success={() => {
 			goto("/profil");
 		}}
