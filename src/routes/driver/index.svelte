@@ -38,7 +38,7 @@
 </script>
 
 <svelte:head>
-	<title>SledAway | Passenger</title>
+	<title>SledAway | Driver</title>
 </svelte:head>
 
 <section>

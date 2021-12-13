@@ -1,6 +1,4 @@
 <script context="module" lang="ts">
-	export const prerender = true;
-
 	export async function load({
 		page,
 		fetch,
@@ -12,7 +10,7 @@
 			lInfo = val;
 		})(); // subscribe once
 
-		if (!lInfo.loggedIn) {
+		if (!lInfo.loggedIn || lInfo.userType != "passenger") {
 			return {
 				redirect: "/",
 				status: 302,
@@ -29,7 +27,7 @@
 
 <script lang="ts">
 	import Status from "$lib/Status.svelte";
-	import Profile from "$lib/Profile.svelte";
+	import Trips from "$lib/passenger/Trips.svelte";
 	import type { LoadOutput } from "@sveltejs/kit";
 	import { login } from "$lib/stores";
 	import type { LoginStore, LoginStoreAssert } from "$lib/structures";
@@ -38,11 +36,11 @@
 </script>
 
 <svelte:head>
-	<title>SledAway | Passenger</title>
+	<title>SledAway | Passenger | Trip History</title>
 </svelte:head>
 
 <section>
-	<Profile {lInfo} />
+	<Trips {lInfo} />
 
 	<Status />
 </section>

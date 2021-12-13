@@ -16,7 +16,7 @@
                 const r = await accountManagement.get("");
                 statuses.accountManagement = "running!";
             } catch (e) {
-                statuses.accountManagement = "down :( | " + e;
+                statuses.accountManagement = "down :(";
             }
         })();
 
@@ -25,7 +25,7 @@
                 const r = await tripHistory.get("");
                 statuses.tripHistory = "running!";
             } catch (e) {
-                statuses.tripHistory = "down :( | " + e;
+                statuses.tripHistory = "down :(";
             }
         })();
 
@@ -34,7 +34,7 @@
                 const r = await tripManagement.get("");
                 statuses.tripManagement = "running!";
             } catch (e) {
-                statuses.tripManagement = "down :( | " + e;
+                statuses.tripManagement = "down :(";
             }
         })();
     });

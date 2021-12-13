@@ -1,10 +1,17 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from "$app/stores";
+	import { login } from "$lib/stores";
+
+	function logout() {
+		login.set({
+			loggedIn: false,
+		});
+	}
 </script>
 
 <header>
 	<div class="corner">
-		<a href="/passenger">
+		<a class="logo" href="/passenger">
 			SledAway <span class="small">Passenger</span>
 		</a>
 	</div>
@@ -14,9 +21,17 @@
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
 		<ul>
-			<li class:active={$page.path === '/passenger'}><a sveltekit:prefetch href="/passenger">Passenger Profile</a></li>
-			<li class:active={$page.path === '/passenger/maketrip'}><a sveltekit:prefetch href="/passenger/maketrip">Request Trip</a></li>
-			<li class:active={$page.path === '/passenger/trips'}><a sveltekit:prefetch href="/passenger/trips">Trip History</a></li>
+			<li class:active={$page.path === "/passenger"}>
+				<a sveltekit:prefetch href="/passenger">Passenger Profile</a>
+			</li>
+			<li class:active={$page.path === "/passenger/maketrip"}>
+				<a sveltekit:prefetch href="/passenger/maketrip">Request Trip</a
+				>
+			</li>
+			<li class:active={$page.path === "/passenger/trips"}>
+				<a sveltekit:prefetch href="/passenger/trips">Trip History</a>
+			</li>
+			<li><a on:click={logout} href="/">Log Out</a></li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
@@ -87,7 +102,7 @@
 
 	li.active::before {
 		--size: 6px;
-		content: '';
+		content: "";
 		width: 0;
 		height: 0;
 		position: absolute;
@@ -117,5 +132,9 @@
 
 	.small {
 		font-size: 14px;
+	}
+
+	.logo {
+		text-decoration: none;
 	}
 </style>

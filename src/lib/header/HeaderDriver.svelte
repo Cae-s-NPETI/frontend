@@ -1,10 +1,17 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from "$app/stores";
+	import { login } from "$lib/stores";
+
+	function logout() {
+		login.set({
+			loggedIn: false,
+		});
+	}
 </script>
 
 <header>
 	<div class="corner">
-		<a href="/driver">
+		<a class="logo" href="/driver">
 			SledAway <span class="small">Driver</span>
 		</a>
 	</div>
@@ -14,8 +21,13 @@
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
 		<ul>
-			<li class:active={$page.path === '/driver'}><a sveltekit:prefetch href="/driver">Driver Profile</a></li>
-			<li class:active={$page.path === '/driver/mytrip'}><a sveltekit:prefetch href="/driver/mytrip">My Assigned Trip</a></li>
+			<li class:active={$page.path === "/driver"}>
+				<a sveltekit:prefetch href="/driver">Driver Profile</a>
+			</li>
+			<li class:active={$page.path === "/driver/mytrip"}>
+				<a sveltekit:prefetch href="/driver/mytrip">My Assigned Trip</a>
+			</li>
+			<li><a on:click={logout} href="/">Log Out</a></li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
@@ -86,7 +98,7 @@
 
 	li.active::before {
 		--size: 6px;
-		content: '';
+		content: "";
 		width: 0;
 		height: 0;
 		position: absolute;
@@ -116,5 +128,9 @@
 
 	.small {
 		font-size: 14px;
+	}
+
+	.logo {
+		text-decoration: none;
 	}
 </style>

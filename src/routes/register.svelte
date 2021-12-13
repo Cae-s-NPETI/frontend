@@ -4,21 +4,14 @@
 
 <script lang="ts">
 	import Register from "$lib/Register.svelte";
-	import { goto } from "$app/navigation";
 </script>
 
 <svelte:head>
 	<title>SledAway</title>
-
 </svelte:head>
 
 <section>
-	<Register
-		on:success={() => {
-			goto("/profil");
-		}}
-	/>
-
+	<Register />
 </section>
 
 <style>
@@ -29,5 +22,4 @@
 		align-items: center;
 		flex: 1;
 	}
-
 </style>
