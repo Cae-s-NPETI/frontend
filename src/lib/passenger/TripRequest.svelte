@@ -1,5 +1,7 @@
 <script lang="ts">
     import { getDriver } from "$lib/utils";
+    import type { AxiosResponse } from "axios";
+    import axios from "axios";
     import { tripManagement } from "../axois";
     import type { Driver, LoginStoreAssert } from "../structures";
 
@@ -14,15 +16,24 @@
     let postalCode;
 
     async function doTripRequest() {
+        errorTxt = null;
         if (!postalCode) {
             errorTxt = "please fill in the postal code";
             return;
         }
 
-        const resp = await tripManagement.post("trips", {
-            passengerId: lInfo.userId,
-            postalCode,
-        });
+        let resp: AxiosResponse;
+        try {
+            resp = await tripManagement.post("trips", {
+                passengerId: lInfo.userId,
+                postalCode,
+            });
+        } catch (e) {
+            if (axios.isAxiosError(e)) {
+                errorTxt = e.response?.data["description"] || e;
+            }
+            return;
+        }
 
         const { id: tripId, driverId } = resp.data;
 
