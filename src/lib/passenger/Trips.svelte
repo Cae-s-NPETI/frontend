@@ -1,14 +1,8 @@
 <script lang="ts">
     import axios from "axios";
     import { onMount } from "svelte";
-
     import { tripHistory } from "../axois";
-    import type {
-        Driver,
-        FullTrip,
-        LoginStoreAssert,
-        User,
-    } from "../structures";
+    import type { FullTrip, LoginStoreAssert } from "../structures";
 
     export let lInfo: LoginStoreAssert;
 
@@ -47,7 +41,7 @@
 {#each trips as trip, i (trip)}
     <p>
         ID: {trip.id}; Postal: {trip.postalCode}; Driver: {trip.driverId}; {new Date(
-            trip.startTime
-        ).toLocaleString()} to {new Date(trip.endTime).toLocaleString()}
+            trip.startTime * 1000
+        ).toString()} to {new Date(trip.endTime * 1000).toString()}
     </p>
 {/each}

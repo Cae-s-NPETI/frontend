@@ -1,18 +1,14 @@
 <script lang="ts">
     import type { AxiosResponse } from "axios";
+    import axios from "axios";
     import { onDestroy, onMount } from "svelte";
 
-    import { tripHistory, tripManagement } from "../axois";
-    import type {
-        Driver,
-        FullTrip,
-        LoginStoreAssert,
-        OngoingTrip,
-        User,
-    } from "../structures";
+    import { tripManagement } from "../axois";
+    import type { LoginStoreAssert, OngoingTrip } from "../structures";
 
     export let lInfo: LoginStoreAssert;
 
+    let errorTxt;
     let available: boolean | null;
     let trip: OngoingTrip;
     let checkAssignedTimer: ReturnType<typeof setInterval>;
@@ -38,6 +34,7 @@
             return;
         }
         available = true;
+        errorTxt = null;
     }
 
     async function setAvailable(set: boolean = true) {
@@ -57,6 +54,7 @@
 
     // Periodically check for assigned trip
     async function checkAssigned() {
+        if (trip != null) return;
         let resp: AxiosResponse;
         try {
             resp = await tripManagement.get(`driver/${lInfo.userId}/trip`);
@@ -71,32 +69,79 @@
             driverId: lInfo.userId,
         };
     }
+
+    async function startTrip() {
+        let resp: AxiosResponse;
+        try {
+            resp = await tripManagement.post(`trips/${trip.id}`, {
+                driverId: lInfo.userId,
+            });
+        } catch (e) {
+            if (axios.isAxiosError(e)) {
+                errorTxt = e.response?.data["description"] || e;
+            }
+            return;
+        }
+
+        const { startTime } = resp.data;
+        trip.startTime = startTime;
+        errorTxt = null;
+    }
+
+    async function endTrip() {
+        let resp: AxiosResponse;
+        try {
+            resp = await tripManagement.delete(`trips/${trip.id}`, {
+                data: {
+                    driverId: lInfo.userId,
+                },
+            });
+        } catch (e) {
+            if (axios.isAxiosError(e)) {
+                errorTxt = e.response?.data["description"] || e;
+            }
+            return;
+        }
+        trip = null;
+        errorTxt = null;
+    }
 </script>
 
 <p>
-    Your Assignment Status: <b
-        >{available == null
+    Your Assignment Status: <b>
+        {available == null
             ? "checking..."
             : available
             ? "available"
-            : "unavailable"}</b
-    >
+            : "unavailable"}
+    </b>
 </p>
-<input
-    type="button"
-    on:click={() => setAvailable(true)}
-    value="Set as available"
-/>
-<input
-    type="button"
-    on:click={() => setAvailable(false)}
-    value="Set as unavailable"
-/>
 
 <h1>My Assigned Trip</h1>
+{#if errorTxt}
+    <p style="color:red">{errorTxt}</p>
+{/if}
+
 {#if trip}
-    O
+    {#if trip.startTime}
+        <p>
+            Your trip started at {new Date(trip.startTime * 1000).toString()}.
+        </p>
+        <input type="button" on:click={endTrip} value="End trip" />
+    {:else}
+        <input type="button" on:click={startTrip} value="Accept trip" />
+    {/if}
 {:else}
+    <input
+        type="button"
+        on:click={() => setAvailable(true)}
+        value="Set as available"
+    />
+    <input
+        type="button"
+        on:click={() => setAvailable(false)}
+        value="Set as unavailable"
+    />
     <div style="text-align:center">
         You currently have no assigned trip yet.
         {#if available == false}

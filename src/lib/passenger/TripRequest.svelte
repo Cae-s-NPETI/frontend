@@ -1,10 +1,5 @@
 <script lang="ts">
-    import { goto } from "$app/navigation";
     import { getDriver } from "$lib/utils";
-
-    import axios from "axios";
-    import { onMount } from "svelte";
-
     import { tripManagement } from "../axois";
     import type { Driver, LoginStoreAssert } from "../structures";
 
