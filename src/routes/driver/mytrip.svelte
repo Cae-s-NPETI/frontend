@@ -1,6 +1,4 @@
 <script context="module" lang="ts">
-	export const prerender = true;
-
 	export async function load({
 		page,
 		fetch,
@@ -29,20 +27,20 @@
 
 <script lang="ts">
 	import Status from "$lib/Status.svelte";
-	import Profile from "$lib/Profile.svelte";
 	import type { LoadOutput } from "@sveltejs/kit";
 	import { login } from "$lib/stores";
 	import type { LoginStore, LoginStoreAssert } from "$lib/structures";
+	import AssignedTrip from "$lib/driver/AssignedTrip.svelte";
 
 	export let lInfo: LoginStoreAssert;
 </script>
 
 <svelte:head>
-	<title>SledAway | Driver</title>
+	<title>SledAway | Passenger | My Trip</title>
 </svelte:head>
 
 <section>
-	<Profile {lInfo} />
+	<AssignedTrip {lInfo} />
 
 	<Status />
 </section>

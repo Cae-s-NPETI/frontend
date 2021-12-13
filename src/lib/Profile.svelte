@@ -1,9 +1,12 @@
 <script lang="ts">
+import { goto } from "$app/navigation";
+
     import type { AxiosError, AxiosResponse } from "axios";
     import axios from "axios";
     import { onMount } from "svelte";
 
     import { accountManagement } from "./axois";
+    import { login } from "./stores";
     import type { Driver, LoginStoreAssert, User } from "./structures";
 
     export let lInfo: LoginStoreAssert;
@@ -124,6 +127,39 @@
         await updateFields();
         setStatus(true, "Updated!");
     }
+
+    async function doDeleteProfile() {
+        let resp;
+        try {
+            switch (lInfo.userType) {
+                case "driver": {
+                    resp = await accountManagement.delete(
+                        "drivers/" + lInfo.userId
+                    );
+                    break;
+                }
+                case "passenger": {
+                    resp = await accountManagement.delete(
+                        "passengers/" + lInfo.userId
+                    );
+                    break;
+                }
+            }
+        } catch (e) {
+            if (axios.isAxiosError(e)) {
+                setStatus(false, `failed: ${e.response?.data["description"] || e}`);
+            } else {
+                setStatus(false, `failed: ${e}`);
+            }
+            return;
+        }
+
+        // Log out
+        login.set({
+			loggedIn: false,
+		});
+        goto("");
+    }
 </script>
 
 <h1>Profile</h1>
@@ -155,6 +191,7 @@
 {/if}
 
 <input type="button" on:click={doEditProfile} value="Edit Profile" />
+<input type="button" on:click={doDeleteProfile} value="Delete Profile" />
 
 <style>
     .green_bold {

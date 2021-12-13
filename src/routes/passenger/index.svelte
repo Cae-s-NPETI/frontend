@@ -12,7 +12,7 @@
 			lInfo = val;
 		})(); // subscribe once
 
-		if (!lInfo.loggedIn) {
+		if (!lInfo.loggedIn || lInfo.userType != "passenger") {
 			return {
 				redirect: "/",
 				status: 302,
